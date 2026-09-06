@@ -1,6 +1,4 @@
-package br.com.fiap.loyalty.test;
-
-import br.com.fiap.loyalty.model.*;
+package loyaltyplatform_modelo.src;
 
 import java.util.Scanner;
 

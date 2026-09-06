@@ -1,8 +1,8 @@
-package br.com.fiap.loyalty.model;
+package loyaltyplatform_modelo.src;
 
 public class Nivel {
 
-    //Definindo atributos de br.com.fiap.loyalty.model.Nivel
+    //Definindo atributos de loyaltyplatform_modelo.src.Nivel
     private int idNivel;
     private String nomeNivel;
     private int pontosMinNivel;

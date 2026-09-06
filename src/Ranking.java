@@ -1,4 +1,4 @@
-package br.com.fiap.loyalty.model;
+package loyaltyplatform_modelo.src;
 
 public class Ranking {
     private int idUsuario;
