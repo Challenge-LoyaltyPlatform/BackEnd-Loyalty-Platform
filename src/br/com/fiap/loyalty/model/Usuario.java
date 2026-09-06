@@ -1,4 +1,4 @@
-package loyaltyplatform_modelo.src;
+package br.com.fiap.loyalty.model;
 
 public class Usuario extends Cadastro {
 
