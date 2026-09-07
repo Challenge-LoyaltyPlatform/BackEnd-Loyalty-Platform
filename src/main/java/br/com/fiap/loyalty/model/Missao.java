@@ -1,32 +1,33 @@
 package br.com.fiap.loyalty.model;
 
-public class Missao {
+public class Missao implements Ativavel {
 
-    // Definindo atributos de Missao
+    //Definindo atributos de Missao
     private int idMissao;
     private int idCampanha;
     private String nomeMissao;
     private String descricaoMissao;
     private int metaMissao;
     private int pontosRecompensaMissao;
+    private StatusMissao statusMissao;
 
-
-    // Construtor padrão
+    //Construtor padrão
     public Missao() {
-
     }
 
-    // Construtor com todos os parâmetros
-    public Missao(int idMissao, int idCampanha, String nomeMissao, String descricaoMissao, int metaMissao, int pontosRecompensaMissao) {
+    //Construtor com todos os parâmetros
+    public Missao(int idMissao, int idCampanha, String nomeMissao, String descricaoMissao,
+                  int metaMissao, int pontosRecompensaMissao, StatusMissao statusMissao) {
         this.idMissao = idMissao;
         this.idCampanha = idCampanha;
         this.nomeMissao = nomeMissao;
         this.descricaoMissao = descricaoMissao;
         this.metaMissao = metaMissao;
         this.pontosRecompensaMissao = pontosRecompensaMissao;
+        this.statusMissao = statusMissao;
     }
 
-    // Métodos Getters
+    //Métodos Getters
     public int getIdMissao() {
         return idMissao;
     }
@@ -45,8 +46,11 @@ public class Missao {
     public int getPontosRecompensaMissao() {
         return pontosRecompensaMissao;
     }
+    public StatusMissao getStatusMissao() {
+        return statusMissao;
+    }
 
-    // Métodos Setters
+    //Métodos Setters
     public void setIdMissao(int idMissao) {
         this.idMissao = idMissao;
     }
@@ -65,16 +69,45 @@ public class Missao {
     public void setPontosRecompensaMissao(int pontosRecompensaMissao) {
         this.pontosRecompensaMissao = pontosRecompensaMissao;
     }
+    public void setStatusMissao(StatusMissao statusMissao) {
+        this.statusMissao = statusMissao;
+    }
 
-    // Método de negócio — verifica se o progresso atingiu a meta da missão
+    //Métodos de negócio
+
+    // Verifica se o progresso informado atingiu a meta da missão
     public boolean verificarMetaAtingida(int progressoAtual) {
-        if (progressoAtual >= this.metaMissao) {
-            System.out.println("Missão '" + getNomeMissao() + "' concluída! Você ganhou " + getPontosRecompensaMissao() + " pontos.");
-            return true;
-        } else {
-            System.out.println("Missão '" + getNomeMissao() + "' em andamento. Progresso: " + progressoAtual + "/" + getMetaMissao());
-            return false;
+        return progressoAtual >= this.metaMissao;
+    }
+
+    // RN24 — missão inativa não concede pontos nem recompensas
+    public boolean concedeRecompensa() {
+        return this.statusMissao == StatusMissao.ATIVA;
+    }
+
+    @Override
+    public void ativar() {
+        if(statusMissao == StatusMissao.INATIVA){
+            this.statusMissao = StatusMissao.ATIVA;
+        } else{
+            throw new IllegalStateException(
+                    "Missão já está ativada.");
         }
+
+    }
+
+    @Override
+    public void desativar() {
+        if(statusMissao == StatusMissao.ATIVA) {
+            this.statusMissao = StatusMissao.INATIVA;
+        } else {
+            throw new IllegalStateException(
+                    "Missão já está desativada.");
+        }
+    }
+
+    public void excluir() {
+        this.statusMissao = StatusMissao.EXCLUIDA;
     }
 
     @Override
@@ -85,6 +118,8 @@ public class Missao {
                 ", Nome da Missão= " + getNomeMissao() +
                 ", Descrição= " + getDescricaoMissao() +
                 ", Meta= " + getMetaMissao() +
-                ", Pontos de Recompensa= " + getPontosRecompensaMissao() + "}";
+                ", Pontos de Recompensa= " + getPontosRecompensaMissao() +
+                ", Status= " + getStatusMissao() +
+                "}";
     }
 }
