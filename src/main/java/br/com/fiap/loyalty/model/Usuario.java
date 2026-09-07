@@ -1,8 +1,10 @@
 package br.com.fiap.loyalty.model;
 
+import java.time.LocalDate;
+
 public class Usuario extends Cadastro {
 
-    //Definindo os Atributos do Usuário
+    //Definindo os atributos do Usuário
     private String nomeUsuario;
     private String senhaUsuario;
 
@@ -12,7 +14,7 @@ public class Usuario extends Cadastro {
 
     //Construtor com todos os parâmetros
     public Usuario(int idUsuario, String nomeUsuario, String emailUsuario,
-                   String senhaUsuario, String dataCadastro) {
+                   String senhaUsuario, LocalDate dataCadastro) {
         super(idUsuario, emailUsuario, dataCadastro);
         this.nomeUsuario = nomeUsuario;
         this.senhaUsuario = senhaUsuario;
@@ -45,8 +47,8 @@ public class Usuario extends Cadastro {
     public String toString() {
         return "Dados do Usuário{" +
                 "Id do Usuário= " + getId() +
-                ", Nome do Usuário= " + getNomeUsuario() +
-                ", Email do Usuário= " + getEmail() +
+                ", Nome= " + getNomeUsuario() +
+                ", Email= " + getEmail() +
                 ", Data de Cadastro= " + getDataCadastro() +
                 "}";
     }

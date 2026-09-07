@@ -31,21 +31,27 @@ public class Missao implements Ativavel {
     public int getIdMissao() {
         return idMissao;
     }
+
     public int getIdCampanha() {
         return idCampanha;
     }
+
     public String getNomeMissao() {
         return nomeMissao;
     }
+
     public String getDescricaoMissao() {
         return descricaoMissao;
     }
+
     public int getMetaMissao() {
         return metaMissao;
     }
+
     public int getPontosRecompensaMissao() {
         return pontosRecompensaMissao;
     }
+
     public StatusMissao getStatusMissao() {
         return statusMissao;
     }
@@ -54,21 +60,27 @@ public class Missao implements Ativavel {
     public void setIdMissao(int idMissao) {
         this.idMissao = idMissao;
     }
+
     public void setIdCampanha(int idCampanha) {
         this.idCampanha = idCampanha;
     }
+
     public void setNomeMissao(String nomeMissao) {
         this.nomeMissao = nomeMissao;
     }
+
     public void setDescricaoMissao(String descricaoMissao) {
         this.descricaoMissao = descricaoMissao;
     }
+
     public void setMetaMissao(int metaMissao) {
         this.metaMissao = metaMissao;
     }
+
     public void setPontosRecompensaMissao(int pontosRecompensaMissao) {
         this.pontosRecompensaMissao = pontosRecompensaMissao;
     }
+
     public void setStatusMissao(StatusMissao statusMissao) {
         this.statusMissao = statusMissao;
     }
@@ -80,33 +92,41 @@ public class Missao implements Ativavel {
         return progressoAtual >= this.metaMissao;
     }
 
-    // RN24 — missão inativa não concede pontos nem recompensas
+    // RN24 — missão inativa ou excluída não concede pontos nem recompensas
     public boolean concedeRecompensa() {
         return this.statusMissao == StatusMissao.ATIVA;
     }
 
+    // RN25 — a exclusão é lógica e terminal: missão excluída não é reativada
     @Override
     public void ativar() {
-        if(statusMissao == StatusMissao.INATIVA){
-            this.statusMissao = StatusMissao.ATIVA;
-        } else{
+        if (this.statusMissao == StatusMissao.EXCLUIDA) {
             throw new IllegalStateException(
-                    "Missão já está ativada.");
+                    "Missão excluída não pode ser reativada: " + getNomeMissao());
         }
-
+        if (this.statusMissao == StatusMissao.ATIVA) {
+            throw new IllegalStateException("Missão já está ativa: " + getNomeMissao());
+        }
+        this.statusMissao = StatusMissao.ATIVA;
     }
 
     @Override
     public void desativar() {
-        if(statusMissao == StatusMissao.ATIVA) {
-            this.statusMissao = StatusMissao.INATIVA;
-        } else {
+        if (this.statusMissao == StatusMissao.EXCLUIDA) {
             throw new IllegalStateException(
-                    "Missão já está desativada.");
+                    "Missão excluída não pode ser desativada: " + getNomeMissao());
         }
+        if (this.statusMissao == StatusMissao.INATIVA) {
+            throw new IllegalStateException("Missão já está inativa: " + getNomeMissao());
+        }
+        this.statusMissao = StatusMissao.INATIVA;
     }
 
+    // RN25 — exclusão lógica: o histórico de conclusões é preservado
     public void excluir() {
+        if (this.statusMissao == StatusMissao.EXCLUIDA) {
+            throw new IllegalStateException("Missão já foi excluída: " + getNomeMissao());
+        }
         this.statusMissao = StatusMissao.EXCLUIDA;
     }
 
@@ -115,7 +135,7 @@ public class Missao implements Ativavel {
         return "Dados da Missão{" +
                 "Id da Missão= " + getIdMissao() +
                 ", Id da Campanha= " + getIdCampanha() +
-                ", Nome da Missão= " + getNomeMissao() +
+                ", Nome= " + getNomeMissao() +
                 ", Descrição= " + getDescricaoMissao() +
                 ", Meta= " + getMetaMissao() +
                 ", Pontos de Recompensa= " + getPontosRecompensaMissao() +

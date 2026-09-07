@@ -10,6 +10,7 @@ import java.util.Scanner;
 /**
  * Classe executável de teste da Loyalty Platform.
  * Instancia os objetos do domínio e simula a utilização da aplicação.
+ * Os dados ficam em memória nesta etapa; a camada DAO assume a persistência depois.
  */
 public class Main {
 
@@ -48,7 +49,7 @@ public class Main {
         int opcao;
         do {
             System.out.println("""
- 
+
                     1 - Exibir dados
                     2 - Registrar acesso do dia
                     3 - Completar missão
@@ -99,7 +100,7 @@ public class Main {
         System.out.println(contou
                 ? "Acesso contado. Sequência: " + sequencia.getDiasConsecutivos() + " dia(s)."
                 : "Você já acessou neste dia. Sequência mantida em "
-                + sequencia.getDiasConsecutivos() + " dia(s).");
+                  + sequencia.getDiasConsecutivos() + " dia(s).");
     }
 
     // RN06, RN08, RN09 e RN24 — regras encadeadas para conceder a recompensa
