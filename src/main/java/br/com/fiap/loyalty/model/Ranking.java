@@ -1,13 +1,15 @@
 package br.com.fiap.loyalty.model;
 
+import java.time.LocalDate;
+
 public class Ranking {
 
     //Definindo atributos do Ranking (chave composta: usuário + empresa)
     private int idUsuario;
     private int idEmpresa;
     private int posicaoRanking;
-    private String dataRanking;
     private int pontuacaoRanking;
+    private LocalDate dataRanking;
 
     //Construtor padrão
     public Ranking() {
@@ -15,12 +17,12 @@ public class Ranking {
 
     //Construtor com todos os parâmetros
     public Ranking(int idUsuario, int idEmpresa, int posicaoRanking,
-                   String dataRanking, int pontuacaoRanking) {
+                   int pontuacaoRanking, LocalDate dataRanking) {
         this.idUsuario = idUsuario;
         this.idEmpresa = idEmpresa;
         this.posicaoRanking = posicaoRanking;
-        this.dataRanking = dataRanking;
         this.pontuacaoRanking = pontuacaoRanking;
+        this.dataRanking = dataRanking;
     }
 
     //Métodos Getters
@@ -36,12 +38,12 @@ public class Ranking {
         return posicaoRanking;
     }
 
-    public String getDataRanking() {
-        return dataRanking;
-    }
-
     public int getPontuacaoRanking() {
         return pontuacaoRanking;
+    }
+
+    public LocalDate getDataRanking() {
+        return dataRanking;
     }
 
     //Métodos Setters
@@ -57,21 +59,22 @@ public class Ranking {
         this.posicaoRanking = posicaoRanking;
     }
 
-    public void setDataRanking(String dataRanking) {
-        this.dataRanking = dataRanking;
-    }
-
     public void setPontuacaoRanking(int pontuacaoRanking) {
         this.pontuacaoRanking = pontuacaoRanking;
     }
 
+    public void setDataRanking(LocalDate dataRanking) {
+        this.dataRanking = dataRanking;
+    }
+
     //Metodo de negócio — a posição no ranking começa em 1
-    public void atualizarPosicao(int novaPosicao) {
+    public void atualizarPosicao(int novaPosicao, LocalDate dataAtualizacao) {
         if (novaPosicao < 1) {
             throw new IllegalArgumentException(
                     "Posição no ranking deve ser maior ou igual a 1. Recebido: " + novaPosicao);
         }
         this.posicaoRanking = novaPosicao;
+        this.dataRanking = dataAtualizacao;
     }
 
     @Override
@@ -79,9 +82,9 @@ public class Ranking {
         return "Dados do Ranking{" +
                 "Id do Usuário= " + getIdUsuario() +
                 ", Id da Empresa= " + getIdEmpresa() +
-                ", Posição no Ranking= " + getPosicaoRanking() +
-                ", Data de Atualização= " + getDataRanking() +
+                ", Posição= " + getPosicaoRanking() +
                 ", Pontuação= " + getPontuacaoRanking() +
+                ", Data de Atualização= " + getDataRanking() +
                 "}";
     }
 }

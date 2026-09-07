@@ -9,52 +9,63 @@ public class Nivel {
     private int pontosMaxNivel;
 
     //Construtor vazio
-    public Nivel(){}
+    public Nivel() {
+    }
 
     //Construtor com todos os parâmetros
-    public Nivel(int idNivel, String nomeNivel, int pontosMinNivel, int pontosMaxNivel){
+    public Nivel(int idNivel, String nomeNivel, int pontosMinNivel, int pontosMaxNivel) {
         this.idNivel = idNivel;
         this.nomeNivel = nomeNivel;
         this.pontosMinNivel = pontosMinNivel;
         this.pontosMaxNivel = pontosMaxNivel;
     }
 
-    //Metodos Getters
-    public int getIdNivel(){
-        return this.idNivel;
+    //Métodos Getters
+    public int getIdNivel() {
+        return idNivel;
     }
+
     public String getNomeNivel() {
-        return this.nomeNivel;
-    }
-    public int getPontosMinNivel() {
-        return this.pontosMinNivel;
-    }
-    public int getPontosMaxNivel() {
-        return this.pontosMaxNivel;
+        return nomeNivel;
     }
 
-    //Metodos Setters
-    public void setIdNivel(int idNivel){
+    public int getPontosMinNivel() {
+        return pontosMinNivel;
+    }
+
+    public int getPontosMaxNivel() {
+        return pontosMaxNivel;
+    }
+
+    //Métodos Setters
+    public void setIdNivel(int idNivel) {
         this.idNivel = idNivel;
     }
-    public void setNomeNivel(String nomeNivel){
+
+    public void setNomeNivel(String nomeNivel) {
         this.nomeNivel = nomeNivel;
     }
-    public void setPontosMinNivel(int pontosMinNivel){
+
+    public void setPontosMinNivel(int pontosMinNivel) {
         this.pontosMinNivel = pontosMinNivel;
     }
-    public void setPontosMaxNivel(int pontosMaxNivel){
+
+    public void setPontosMaxNivel(int pontosMaxNivel) {
         this.pontosMaxNivel = pontosMaxNivel;
+    }
+
+    //Metodo de negócio — o nível sabe qual faixa de pontuação ele cobre
+    public boolean contemPontuacao(int pontuacao) {
+        return pontuacao >= this.pontosMinNivel && pontuacao <= this.pontosMaxNivel;
     }
 
     @Override
-    public String toString(){
-        return "Nível{" +
-                "Id Nível= " + getIdNivel() +
-                ", nome do nivel= "+ getNomeNivel() +
-                ", Pontos Mínimos para "+getNomeNivel() + ": "+getPontosMinNivel()+
-                ", Pontos Máximos para esse nível "+getPontosMaxNivel()+
+    public String toString() {
+        return "Dados do Nível{" +
+                "Id do Nível= " + getIdNivel() +
+                ", Nome= " + getNomeNivel() +
+                ", Pontos Mínimos= " + getPontosMinNivel() +
+                ", Pontos Máximos= " + getPontosMaxNivel() +
                 "}";
     }
-
 }
