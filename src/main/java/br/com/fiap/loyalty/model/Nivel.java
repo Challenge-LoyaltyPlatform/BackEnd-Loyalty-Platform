@@ -2,15 +2,14 @@ package br.com.fiap.loyalty.model;
 
 public class Nivel {
 
-    //Definindo atributos de br.com.fiap.loyalty.model.Nivel
+    //Definindo atributos de Nivel
     private int idNivel;
     private String nomeNivel;
     private int pontosMinNivel;
     private int pontosMaxNivel;
 
     //Construtor vazio
-    public Nivel(){
-    }
+    public Nivel(){}
 
     //Construtor com todos os parâmetros
     public Nivel(int idNivel, String nomeNivel, int pontosMinNivel, int pontosMaxNivel){
@@ -34,7 +33,7 @@ public class Nivel {
         return this.pontosMaxNivel;
     }
 
-    //Metodo Set
+    //Metodos Setters
     public void setIdNivel(int idNivel){
         this.idNivel = idNivel;
     }
