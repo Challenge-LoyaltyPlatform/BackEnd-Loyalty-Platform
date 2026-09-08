@@ -1,4 +1,4 @@
-package br.com.fiap.loyalty.model;
+package br.com.fiap.loyalty.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
