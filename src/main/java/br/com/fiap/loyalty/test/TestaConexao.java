@@ -1,4 +1,6 @@
-package br.com.fiap.loyalty.model;
+package br.com.fiap.loyalty.test;
+
+import br.com.fiap.loyalty.db.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
