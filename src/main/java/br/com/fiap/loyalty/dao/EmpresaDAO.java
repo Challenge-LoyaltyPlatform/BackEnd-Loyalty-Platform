@@ -11,22 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmpresaDAO {
-        String sql = "INSERT INTO TB_EMPRESA (nome_empresa, cnpj_empresa, email_empresa, telefone_empresa, data_cadastro_empresa, status_empresa)"
-                + " VALUES (?, ?, ?, ?, ?, ? )";
-
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, empresa.getNomeEmpresa());
-            stmt.setString(2, empresa.getCnpjEmpresa());
-            stmt.setString(3, empresa.getEmail());
-            stmt.setString(4, empresa.getTelefoneEmpresa());
-            stmt.setDate(5, java.sql.Date.valueOf(empresa.getDataCadastro()));
-            stmt.setString(6, empresa.getStatusEmpresa().name());
-        }
-    }
-
-    public Empresa buscarPorId(int idEmpresa) {
+public Empresa buscarPorId(int idEmpresa) {
         String sql = "SELECT * FROM TB_EMPRESA WHERE id_empresa = ?";
         Empresa empresa = null;
 
