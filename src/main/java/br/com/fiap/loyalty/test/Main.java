@@ -38,8 +38,12 @@ public class Main {
     private static final MissaoDAO missaoDAO = new MissaoDAO();
     private static final Missao missao = missaoDAO.buscarPorId(1);
 
-    private static final Sequencia sequencia =
-            new Sequencia(1, 1, 0, StatusSequencia.ATIVA, null, null, null);
+    // Sequencia é chave composta e pode ainda não existir no banco (usuário sem acesso registrado ainda)
+    private static final SequenciaDAO sequenciaDAO = new SequenciaDAO();
+    private static final Sequencia sequenciaExistente = sequenciaDAO.buscarPorChave(1, 1);
+    private static final Sequencia sequencia = sequenciaExistente != null
+            ? sequenciaExistente
+            : new Sequencia(1, 1, 0, StatusSequencia.ATIVA, null, null, null);
 
     public static void main(String[] args) {
         System.out.println("===== LOYALTY PLATFORM =====");
@@ -99,7 +103,11 @@ public class Main {
                 ? "Acesso contado. Sequência: " + sequencia.getDiasConsecutivos() + " dia(s)."
                 : "Você já acessou neste dia. Sequência mantida em "
                 + sequencia.getDiasConsecutivos() + " dia(s).");
+
+
     }
+
+
 
     // RN06, RN08, RN09 e RN24 — regras encadeadas para conceder a recompensa
     private static void completarMissao() {
