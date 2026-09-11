@@ -1,5 +1,6 @@
 package br.com.fiap.loyalty.test;
 
+import br.com.fiap.loyalty.dao.*;
 import br.com.fiap.loyalty.model.*;
 
 import java.time.LocalDate;
@@ -22,22 +23,20 @@ public class Main {
             new Nivel(3, "Platina", 500, 1000)
     };
 
-    private static final Empresa empresa = new Empresa(1, "contato@soulup.com.br",
-            LocalDate.of(2026, 1, 15), "SoulUp", "12345678000199",
-            "(11) 3333-4444", StatusEmpresa.ATIVA);
+    private static final EmpresaDAO empresaDAO = new EmpresaDAO();
+    private static final Empresa empresa = empresaDAO.buscarPorId(1);
 
-    private static final Usuario usuario = new Usuario(1, "Andrei Sousa",
-            "andrei@email.com", "senha123", LocalDate.of(2026, 3, 1));
+    private static final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private static final Usuario usuario = usuarioDAO.buscarPorId(1);
 
-    private static final EmpresaUsuario vinculo =
-            new EmpresaUsuario(1, 1, 1, 80, LocalDate.of(2026, 3, 1));
+    private static final EmpresaUsuarioDAO empresaUsuarioDAO = new EmpresaUsuarioDAO();
+    private static final EmpresaUsuario vinculo = empresaUsuarioDAO.buscarPorChave(1, 1);
 
-    private static final Campanha campanha = new Campanha(1, 1, "Campanha de Indicação",
-            "Indique amigos e ganhe pontos", LocalDate.of(2026, 9, 1),
-            LocalDate.of(2026, 12, 31), StatusCampanha.ATIVA);
+    private static final CampanhaDAO campanhaDAO = new CampanhaDAO();
+    private static final Campanha campanha = campanhaDAO.buscarPorId(1);
 
-    private static final Missao missao = new Missao(1, 1, "Missão de Influência",
-            "Compartilhe 20 vídeos com 3 amigos", 20, 50, StatusMissao.ATIVA);
+    private static final MissaoDAO missaoDAO = new MissaoDAO();
+    private static final Missao missao = missaoDAO.buscarPorId(1);
 
     private static final Sequencia sequencia =
             new Sequencia(1, 1, 0, StatusSequencia.ATIVA, null, null, null);
