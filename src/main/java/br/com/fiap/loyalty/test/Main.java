@@ -104,7 +104,15 @@ public class Main {
                 : "Você já acessou neste dia. Sequência mantida em "
                 + sequencia.getDiasConsecutivos() + " dia(s).");
 
+        persistirSequencia();
+    }
 
+    private static void persistirSequencia() {
+        if (sequenciaDAO.buscarPorChave(sequencia.getIdUsuario(), sequencia.getIdEmpresa()) == null) {
+            sequenciaDAO.inserir(sequencia);
+        } else {
+            sequenciaDAO.atualizar(sequencia);
+        }
     }
 
 
