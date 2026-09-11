@@ -6,6 +6,7 @@ import br.com.fiap.loyalty.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -17,11 +18,8 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private static final Nivel[] NIVEIS = {
-            new Nivel(1, "Bronze", 0, 99),
-            new Nivel(2, "Prata", 100, 499),
-            new Nivel(3, "Platina", 500, 1000)
-    };
+    private static final NivelDAO nivelDAO = new NivelDAO();
+    private static final List<Nivel> NIVEIS = nivelDAO.listar();
 
     private static final EmpresaDAO empresaDAO = new EmpresaDAO();
     private static final Empresa empresa = empresaDAO.buscarPorId(1);
