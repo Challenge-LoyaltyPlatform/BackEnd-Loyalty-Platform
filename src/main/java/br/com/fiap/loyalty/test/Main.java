@@ -6,6 +6,7 @@ import br.com.fiap.loyalty.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -17,11 +18,8 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private static final Nivel[] NIVEIS = {
-            new Nivel(1, "Bronze", 0, 99),
-            new Nivel(2, "Prata", 100, 499),
-            new Nivel(3, "Platina", 500, 1000)
-    };
+    private static final NivelDAO nivelDAO = new NivelDAO();
+    private static final List<Nivel> NIVEIS = nivelDAO.listar();
 
     private static final EmpresaDAO empresaDAO = new EmpresaDAO();
     private static final Empresa empresa = empresaDAO.buscarPorId(1);
@@ -139,9 +137,10 @@ public class Main {
         for (Nivel n : NIVEIS) {
             if (vinculo.atualizarNivel(n)) {
                 System.out.println("Nível atualizado para: " + n.getNomeNivel());
-                return;
+                break;
             }
         }
+        empresaUsuarioDAO.atualizar(vinculo);
     }
 
     // RN10 e RN18 — progresso na faixa do nível e elegibilidade no ranking
@@ -158,6 +157,7 @@ public class Main {
     // RN16 e RN23 — encerrar é terminal e a pontuação permanece com os usuários
     private static void encerrarCampanha() {
         campanha.encerrar();
+        campanhaDAO.atualizar(campanha);
         System.out.println("Campanha encerrada. A pontuação conquistada permanece com os usuários.");
         System.out.println("Tentando reativar para demonstrar que o encerramento é terminal:");
         campanha.ativar();
@@ -186,7 +186,7 @@ public class Main {
                 return n;
             }
         }
-        return NIVEIS[0];
+        return NIVEIS.get(0);
     }
 
     // Lê sempre com nextLine e converte depois: nextInt deixa a quebra de linha no buffer
