@@ -313,7 +313,7 @@ public class Main {
         System.out.println(contou
                 ? "Acesso contado. Sequência: " + sequencia.getDiasConsecutivos() + " dia(s)."
                 : "Você já acessou neste dia. Sequência mantida em "
-                  + sequencia.getDiasConsecutivos() + " dia(s).");
+                + sequencia.getDiasConsecutivos() + " dia(s).");
 
         persistirSequencia();
     }

@@ -18,21 +18,35 @@ public class TestaConexao {
         }
 
 
-        // --- CRIAÇÃO DE DADOS FICTICIA PARA TESTAR: roda uma vez, depois apaga esse bloco ---
-        //new NivelDAO().inserir(new Nivel(0, "Bronze", 0, 99));
-        //new NivelDAO().inserir(new Nivel(0, "Prata", 100, 499));
-        //new NivelDAO().inserir(new Nivel(0, "Platina", 500, 1000));
-        //new EmpresaDAO().inserir(new Empresa(0, "contato@soulup.com.br",
-        //LocalDate.of(2026, 1, 15), "SoulUp", "12345678000199",
-        //"(11) 3333-4444", StatusEmpresa.ATIVA));
-        //new UsuarioDAO().inserir(new Usuario(0, "Andrei Sousa",
-        //"andrei@email.com", "senha123", LocalDate.of(2026, 3, 1)));
-        //new EmpresaUsuarioDAO().inserir(new EmpresaUsuario(1, 1, 1, 80, LocalDate.of(2026, 3, 1)));
-        //new CampanhaDAO().inserir(new Campanha(0, 1, "Campanha de Indicação",
-        // "Indique amigos e ganhe pontos", LocalDate.of(2026, 9, 1),
-        // LocalDate.of(2026, 12, 31), StatusCampanha.ATIVA));
-        //new MissaoDAO().inserir(new Missao(0, 1, "Missão de Influência",
-        //"Compartilhe 20 vídeos com 3 amigos", 20, 50, StatusMissao.ATIVA));
-        // --- FIM DO SEED ---
+        // Carga inicial: só executa se o banco estiver vazio.
+        // Permite rodar esta classe quantas vezes for necessário sem duplicar dados.
+        if (new NivelDAO().listar().isEmpty()) {
+            System.out.println("Banco vazio. Inserindo dados iniciais...");
+
+            new NivelDAO().inserir(new Nivel(0, "Bronze", 0, 99));
+            new NivelDAO().inserir(new Nivel(0, "Prata", 100, 499));
+            new NivelDAO().inserir(new Nivel(0, "Platina", 500, 1000));
+
+            new EmpresaDAO().inserir(new Empresa(0, "contato@soulup.com.br",
+                    LocalDate.of(2026, 1, 15), "SoulUp", "12345678000199",
+                    "(11) 3333-4444", StatusEmpresa.ATIVA));
+
+            new UsuarioDAO().inserir(new Usuario(0, "Andrei Sousa",
+                    "andrei@email.com", "senha123", LocalDate.of(2026, 3, 1)));
+
+            new EmpresaUsuarioDAO().inserir(new EmpresaUsuario(1, 1, 1, 80,
+                    LocalDate.of(2026, 3, 1)));
+
+            new CampanhaDAO().inserir(new Campanha(0, 1, "Campanha de Indicação",
+                    "Indique amigos e ganhe pontos", LocalDate.of(2026, 9, 1),
+                    LocalDate.of(2026, 12, 31), StatusCampanha.ATIVA));
+
+            new MissaoDAO().inserir(new Missao(0, 1, "Missão de Influência",
+                    "Compartilhe 20 vídeos com 3 amigos", 20, 50, StatusMissao.ATIVA));
+
+            System.out.println("Dados iniciais inseridos.");
+        } else {
+            System.out.println("Banco já possui dados. Carga inicial ignorada.");
+        }
     }
 }
